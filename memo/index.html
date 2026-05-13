@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>云笺备忘录</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <nav class="topbar" aria-label="主导航">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">✦</span>
+        <span>云笺备忘录</span>
+      </div>
+      <div class="status-pill" id="storageStatus">本地自动保存</div>
+    </nav>
+    <section class="hero-copy">
+      <p class="eyebrow">Notes · Diary · Schedule</p>
+      <h1>把灵感、日记和日程安排放在同一个网页里。</h1>
+      <p>无需登录，所有内容保存在当前浏览器本地。适合记录待办、每日心情、重要会议和生活计划。</p>
+      <div class="hero-actions">
+        <a href="#memoForm" class="primary-action">立即记录</a>
+        <a href="#todayPanel" class="secondary-action">查看今日</a>
+      </div>
+    </section>
+  </header>
+
+  <main class="app-shell">
+    <section class="stats-grid" aria-label="内容概览">
+      <article class="stat-card">
+        <span class="stat-label">备忘录</span>
+        <strong id="memoCount">0</strong>
+      </article>
+      <article class="stat-card">
+        <span class="stat-label">日记</span>
+        <strong id="diaryCount">0</strong>
+      </article>
+      <article class="stat-card">
+        <span class="stat-label">未来日程</span>
+        <strong id="scheduleCount">0</strong>
+      </article>
+      <article class="stat-card accent" id="todayPanel">
+        <span class="stat-label">今天</span>
+        <strong id="todayText">--</strong>
+      </article>
+    </section>
+
+    <section class="workspace">
+      <aside class="panel composer" aria-labelledby="formTitle">
+        <h2 id="formTitle">添加一条记录</h2>
+        <form id="memoForm">
+          <label>
+            类型
+            <select id="entryType" name="entryType">
+              <option value="memo">备忘录</option>
+              <option value="diary">日记</option>
+              <option value="schedule">日程安排</option>
+            </select>
+          </label>
+          <label>
+            标题
+            <input id="entryTitle" name="entryTitle" type="text" placeholder="例如：项目灵感 / 今日复盘 / 周五会议" required maxlength="60">
+          </label>
+          <label class="date-field">
+            日期
+            <input id="entryDate" name="entryDate" type="date" required>
+          </label>
+          <label>
+            内容
+            <textarea id="entryContent" name="entryContent" rows="7" placeholder="写下要记住的内容……" required maxlength="1000"></textarea>
+          </label>
+          <div class="form-actions">
+            <button type="submit" class="primary-action">保存记录</button>
+            <button type="button" id="clearForm" class="ghost-button">清空</button>
+          </div>
+        </form>
+      </aside>
+
+      <section class="panel records" aria-labelledby="recordTitle">
+        <div class="records-header">
+          <div>
+            <p class="eyebrow">全部内容</p>
+            <h2 id="recordTitle">我的记录</h2>
+          </div>
+          <div class="filters" role="group" aria-label="记录筛选">
+            <button class="filter active" data-filter="all">全部</button>
+            <button class="filter" data-filter="memo">备忘录</button>
+            <button class="filter" data-filter="diary">日记</button>
+            <button class="filter" data-filter="schedule">日程</button>
+          </div>
+        </div>
+        <div id="recordsList" class="records-list" aria-live="polite"></div>
+      </section>
+    </section>
+  </main>
+
+  <template id="recordTemplate">
+    <article class="record-card">
+      <div class="record-meta">
+        <span class="record-badge"></span>
+        <time></time>
+      </div>
+      <h3></h3>
+      <p></p>
+      <button class="delete-button" type="button">删除</button>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
